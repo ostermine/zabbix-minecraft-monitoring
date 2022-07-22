@@ -1,0 +1,4 @@
+every 30 seconds:
+	set {_maxplayers} to number of all players
+	log "%tps%" to "tps.log"
+	log "%{_maxplayers}%" to "online.log"

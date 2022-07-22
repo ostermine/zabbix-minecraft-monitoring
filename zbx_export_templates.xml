@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.2</version>
+    <date>2022-07-22T15:57:04Z</date>
+    <template_groups>
+        <template_group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>133268d1bc004ae790411e288b829a27</uuid>
+            <template>Template Minecraft Stats Active</template>
+            <name>Template Minecraft Stats Active</name>
+            <description>Minecraft server status</description>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>3e9b76ae0cd4448a992724d9c7c0e60e</uuid>
+                    <name>Server connected users</name>
+                    <key>minecraft.server.online[{$MINECRAFT.SERVER.IP},{$MINECRAFT.SERVER.PORT}]</key>
+                    <delay>30</delay>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Minecraft</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>6465ed46060645e196188e895759e624</uuid>
+                    <name>TPS</name>
+                    <key>minecraft.server.tps[{$MINECRAFT.SERVER.IP},{$MINECRAFT.SERVER.PORT}]</key>
+                    <delay>30</delay>
+                    <value_type>FLOAT</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Minecraft</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>04ac21cbc6944b4fa6473fc9ce79cc4d</uuid>
+                            <expression>avg(/Template Minecraft Stats Active/minecraft.server.tps[{$MINECRAFT.SERVER.IP},{$MINECRAFT.SERVER.PORT}],2m)&lt;10</expression>
+                            <name>low tps</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <macros>
+                <macro>
+                    <macro>{$MINECRAFT.SERVER.IP}</macro>
+                    <value>127.0.0.1</value>
+                    <description>Ip or dns name for checks. If you need a customize it, just override for need host.</description>
+                </macro>
+                <macro>
+                    <macro>{$MINECRAFT.SERVER.PORT}</macro>
+                    <value>25565</value>
+                    <description>Port for checks. If you need a customize it, just override for need host.</description>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <uuid>7a3aaeba648a482e817bc3fb077e21d9</uuid>
+            <name>Connected Users</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template Minecraft Stats Active</host>
+                        <key>minecraft.server.online[{$MINECRAFT.SERVER.IP},{$MINECRAFT.SERVER.PORT}]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <uuid>1f6a77772ca34718b724499b74e2bddb</uuid>
+            <name>Server Latency</name>
+            <graph_items>
+                <graph_item>
+                    <color>CCCCFF</color>
+                    <item>
+                        <host>Template Minecraft Stats Active</host>
+                        <key>minecraft.server.tps[{$MINECRAFT.SERVER.IP},{$MINECRAFT.SERVER.PORT}]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
