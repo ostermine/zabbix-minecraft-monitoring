@@ -18,6 +18,10 @@ Provides to put TPS and online to zabbix (only local minecraft servers)
 - Go to your Zabbix and import Template, then attach this to your host
 - You're done!
 
+## Troubleshooting
+
+- Error in zabbix `tail permission denied`, in this case the best solution - add user `zabbix` to needed group, ex. - `usermod -aG minecraft zabbix` (where `minecraft` - group of user, where exist minecraft server, `zabbix` - user of zabbix-agent)
+
 ## Finally
 - You can erase old logs periodically, just put this to crontab `0 7 * * * rm -f /path/to/server/plugins/Skript/logs/*.log`
 - You can use this with grafana like this:
